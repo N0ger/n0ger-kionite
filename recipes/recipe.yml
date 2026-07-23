@@ -20,7 +20,7 @@ modules:
   - type: dnf
     repos:
       copr:
-        enablee:
+        enable:
           - name: archledger/irlume
             chroot: fedora-44-x86_64
     install:
