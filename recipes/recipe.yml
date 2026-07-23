@@ -6,7 +6,7 @@ name: n0ger-kionite
 description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/secureblue/kinoite-main-hardened
+base-image: ghcr.io/blue-build/base-images/fedora-kinoite
 image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
@@ -26,5 +26,6 @@ modules:
     install:
       packages:
         - irlume
+        - @virtualisation
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
