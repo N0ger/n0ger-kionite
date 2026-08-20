@@ -23,7 +23,7 @@ modules:
         enable:
           - name: archledger/irlume
             chroot: fedora-44-x86_64
-          - name: imput/helium
+          - imput/helium
     install:
       packages:
         - irlume
