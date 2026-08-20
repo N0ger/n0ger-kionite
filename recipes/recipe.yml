@@ -23,11 +23,13 @@ modules:
         enable:
           - name: archledger/irlume
             chroot: fedora-44-x86_64
+          - name: imput/helium
     install:
       packages:
         - irlume
         - qemu
         - libvirt
         - virt-manager
+        - helium-bin
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
