@@ -19,6 +19,10 @@ modules:
 
   - type: dnf
     repos:
+      files:
+        - claude-code.repo # files/dnf/claude-code.repo (stable channel)
+      keys:
+        - https://downloads.claude.ai/keys/claude-code.asc
       copr:
         enable:
           - archledger/irlume
@@ -32,6 +36,7 @@ modules:
         - helium-bin
         - gameconqueror
         - steam-devices
+        - claude-code
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
   - type: soar
