@@ -17,10 +17,19 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
+  # Claude Code: Anthropic publishes no downloadable .repo file, so define the repo inline.
+  # Change "stable" to "latest" in baseurl to get every release immediately.
+  - type: script
+    snippets:
+      - >-
+        dnf5 config-manager addrepo --id=claude-code
+        --set=name="Claude Code"
+        --set=baseurl=https://downloads.claude.ai/claude-code/rpm/stable
+        --set=enabled=1 --set=gpgcheck=1
+        --set=gpgkey=https://downloads.claude.ai/keys/claude-code.asc
+
   - type: dnf
     repos:
-      files:
-        - claude-code.repo # files/dnf/claude-code.repo (stable channel)
       keys:
         - https://downloads.claude.ai/keys/claude-code.asc
       copr:
