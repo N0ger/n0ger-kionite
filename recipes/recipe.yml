@@ -7,7 +7,7 @@ description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/blue-build/base-images/fedora-kinoite
-image-version: latest # latest is also supported if you want new updates ASAP
+image-version: 44 # pinned on purpose; bump manually after checking COPR repos support the new release
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -17,12 +17,24 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
+  # Claude Code: Anthropic publishes no downloadable .repo file, so define the repo inline.
+  # Change "stable" to "latest" in baseurl to get every release immediately.
+  - type: script
+    snippets:
+      - >-
+        dnf5 config-manager addrepo --id=claude-code
+        --set=name="Claude Code"
+        --set=baseurl=https://downloads.claude.ai/claude-code/rpm/stable
+        --set=enabled=1 --set=gpgcheck=1
+        --set=gpgkey=https://downloads.claude.ai/keys/claude-code.asc
+
   - type: dnf
     repos:
+      keys:
+        - https://downloads.claude.ai/keys/claude-code.asc
       copr:
         enable:
-          - name: archledger/irlume
-            chroot: fedora-44-x86_64
+          - archledger/irlume
           - imput/helium
     install:
       packages:
@@ -33,6 +45,7 @@ modules:
         - helium-bin
         - gameconqueror
         - steam-devices
+        - claude-code
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
   - type: soar
